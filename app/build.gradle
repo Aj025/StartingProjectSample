@@ -1,0 +1,81 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id "androidx.navigation.safeargs.kotlin"
+}
+
+android {
+    compileSdkVersion Apps.compileSdkVersion
+    buildToolsVersion Apps.buildToolsVersion
+
+    defaultConfig {
+        applicationId Apps.applicationId
+        minSdkVersion Apps.minSdkVersion
+        targetSdkVersion Apps.targetSdkVersion
+        versionCode Apps.versionCode
+        versionName Apps.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation project(':data')
+    implementation project(':domain')
+
+    implementation Dependencies.kotlinStandardLibrary
+    implementation Dependencies.constraintLayout
+    implementation Dependencies.androidxCore
+    implementation Dependencies.appcompat
+    implementation Dependencies.androidMaterial
+
+    // Testing
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.junitAndroid
+    androidTestImplementation Dependencies.espressoCore
+
+    // Glide for image caching
+    implementation Dependencies.glide
+    kapt Dependencies.glideCompiler
+
+    // View model
+    implementation Dependencies.fragmentKtx
+    implementation Dependencies.viewmodelKtx
+    implementation Dependencies.liveDataKtx
+
+    // Dagger Hilt
+    implementation Dependencies.dagger_hilt
+    kapt Dependencies.dagger_hilt_compiler
+
+    // Networking
+    implementation Dependencies.okhttpBom
+    implementation Dependencies.loggingInterceptor
+    implementation Dependencies.okhttp
+    implementation Dependencies.retrofit
+    implementation Dependencies.retrofitConverterGson
+
+    // Navigation components
+    implementation Dependencies.navigationFragment
+    implementation Dependencies.navigationUi
+
+}
